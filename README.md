@@ -1,5 +1,7 @@
 # 🌊 Dayflow — Human Resource Management System (HRMS)
 
+<img width="1920" height="1013" alt="screencapture-dayflow-kduw-onrender-2026-01-03-16_48_47" src="https://github.com/user-attachments/assets/a169dbd8-a854-4cb9-8bf5-1ca029f04aac" />
+
 **Every workday, perfectly aligned.**
 
 Dayflow is a **modern, role-based Human Resource Management System (HRMS)** designed to digitize and streamline core HR operations. Built with a scalable React architecture, Dayflow simplifies employee management, attendance tracking, leave workflows, and payroll visibility — all in one clean and intuitive platform.
