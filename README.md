@@ -1,6 +1,6 @@
 # 🌊 Dayflow — Human Resource Management System (HRMS)
 
-<img width="1920" height="1013" alt="screencapture-dayflow-kduw-onrender-2026-01-03-16_48_47" src="https://github.com/user-attachments/assets/a169dbd8-a854-4cb9-8bf5-1ca029f04aac" />
+<img width="1920" height="1185" alt="shubhamos" src="https://github.com/user-attachments/assets/9f73ef1e-cb7a-4d03-9a27-692f95f4239d" />
 
 **Every workday, perfectly aligned.**
 
