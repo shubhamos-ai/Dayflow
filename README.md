@@ -1,249 +1,106 @@
-# 🌊 Dayflow — Human Resource Management System (HRMS)
+# Modular Discord Moderation Bot
 
-<img width="1920" height="1185" alt="shubhamos" src="https://github.com/user-attachments/assets/9f73ef1e-cb7a-4d03-9a27-692f95f4239d" />
+A modular bot for moderating users on discord! Add custom commands and event handlers to customize the bot to your liking. Reload the bot using the builtin `!reload` or `!reload events` command to see your changes applied LIVE!
 
-**Every workday, perfectly aligned.**
+## A Note Regarding Message Intents
 
-Dayflow is a **modern, role-based Human Resource Management System (HRMS)** designed to digitize and streamline core HR operations. Built with a scalable React architecture, Dayflow simplifies employee management, attendance tracking, leave workflows, and payroll visibility — all in one clean and intuitive platform.
+This bot will only work for bots that are smaller as it requires the use of message intents, which for larger bots, requires verification from discord.
+This means if your bot will be in more than 100 severs you will not be able to use this method of doing commands and will need to code your own command handlers using the new interactions.
 
-> Designed & Developed by **SHUBHAMOS** 🚀
+See [this FAQ](https://support-dev.discord.com/hc/en-us/articles/4404772028055-Message-Content-Privileged-Intent-FAQ) from discord regarding these changes.
 
----
+There is a vague plan to update to use the new interaction based commands which offers a nicer user experience, but for now it will remain message based until I really get bored and need something to do
 
-## ✨ Overview
+## Quick Links
 
-Dayflow helps organizations manage their workforce efficiently by providing a **secure, centralized, and user-friendly HR platform**. It supports both **Employees** and **HR/Admin users** with role-specific dashboards and workflows, ensuring clarity, transparency, and productivity across teams.
+[Adding your own commands](DEVELOPING.md#custom-commands)
 
-The system focuses on:
+[Adding your own event handlers](DEVELOPING.md#custom-event-handlers)
 
-* Reducing manual HR processes
-* Improving employee experience
-* Enabling HR teams to manage operations effortlessly
+[Adding your own persistent storage](DEVELOPING.md#custom-storage-file)
 
----
+## Installation/Setup
 
-## 🚀 Key Features
+### Installing Requirements
 
-### 🔐 Authentication & Security
+- [**Python**](https://www.python.org/downloads/) *Version >=3.8*
+- [**discord.py**](https://pypi.org/project/discord.py/) *Tested on 2.3.2*
+  - Windows install: `python -m pip install discord.py`
+  - Linux install: `pip3 install discord.py`
 
-* Secure **Sign Up / Sign In**
-* Email verification
-* Strong password rules
-* Role-based access control (Employee / HR / Admin)
+### Creating a bot account with Discord
 
----
+1. Go to the [discord developer portal](https://discord.com/developers/applications) and create a new application
+2. Navigate to the `Bot` section and click `Add a bot`. Fill in the necessary info (like name and an image if you like)
+3. Scroll down to the `Privileged Gateway Intents` section and make sure to select the `SERVER MEMBERS INTENT` and `MESSAGE CONTENT INTENT`. **Click save so it saves your changes!**
+4. Now scroll back up and click the `Reset Token` button, follow the screen prompts until you can copy that token. This is how the program will log in as this bot account. **DO NOT SHARE THIS TOKEN WITH ANYONE!**
+5. Paste the newly copied token into a text file called `token.txt` in the same folder as the `bot.py` file.
 
-### 👥 Role-Based Access
+### Inviting the bot to your server
 
-#### 🧑‍💼 Employee
+1. On the application page for your bot in the [discord developer portal](https://discord.com/developers/applications), click the `OAuth2` section.
+2. Now click the `URL Generator` section on the sidebar
+3. Select the `bot` scope and then select the `Administrator` permission in the newly displayed Bot Permissions checkbox list
+4. Copy the URL from the bottom and paste it into your browser. Follow the onscreen prompts to invite the bot to your server. You must be an administrator to invite the bot to the server.
 
-* View personal profile
-* Track attendance (daily & weekly)
-* Apply for leave and time-off
-* View salary & payroll details (read-only)
+### Running the bot
 
-#### 🛠️ Admin / HR Officer
+1. Open a command prompt in the root directory of the bot files (where `bot.py` is) and run the command `python bot.py` to run the bot.
+2. You should see some output on the screen talking about loading commands and logging in as the bot. If that all works, now you can use the bot!
+3. Add any moderator roles you want to the bot using the commands below!
 
-* Manage employee records
-* Approve or reject leave requests
-* Monitor attendance of all employees
-* View and update payroll structures
-* Switch between employee profiles
+## Bot Information
 
----
+- Default prefix: `!`
+- `<argument>` = **Required argument**
+- `[argument]` = **Optional argument**
+- Durations can either be a formatted time that looks like the following: (`1w2d3h4m5s`) or time in seconds.
+- Durations can also use single types like `2m` or `1w` for example
+- All commands require you to be in a moderator role. See the commands below on how to add or remove a mod role (requires admin permission to add mod roles)
+- Read how to get the User ID [here](#how-to-get-user-id)
 
-### 📊 Dashboards
+### Commands
 
-#### Employee Dashboard
+- `!mod <add|remove|list> <role ID>`
+  - Adds, removes the role ID to the list of moderator roles.
+  - If you want to `list` the roles, you do not need the role ID at the end.
 
-* Quick access to:
+- `!mute <user ID> [reason]`
+  - Permanently mutes the user. Must be unmuted manually.
 
-  * Profile
-  * Attendance
-  * Leave requests
-  * Logout
-* Displays recent activities and alerts
+- `!tempmute <user ID> <duration> [reason]`
+  - Temporarily mutes the user.
 
-#### Admin / HR Dashboard
+- `!unmute <user ID>`
+  - Unmutes the user
 
-* Employee list overview
-* Attendance records
-* Pending leave approvals
-* Centralized management controls
+- `!ban <user ID> <duration> <reason>`
+  - Bans the user from the server for the duration specified
+  - Reason is required. If you do not have a reason, you should not be banning them.
 
----
+- `!unban <user ID>`
+  - Unbans the user from the server.
 
-### 🧾 Employee Profile Management
+- `!reload`
+  - Reloads the command registry for any changes that were made to commands
 
-* Personal details
-* Job & role information
-* Salary structure
-* Documents & profile picture
+- `!reload events`
+  - Reloads the event registry for any changes that were made
 
-**Permissions**
+### How to get user ID
 
-* Employees: Edit limited fields (address, phone, profile picture)
-* Admin/HR: Full edit access
+You should follow the discord guide [here](https://support.discordapp.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-)
 
----
+**But the gist is:**
 
-### ⏱️ Attendance Management
+- Enable developer mode in discord
+- Right click their username in chat or on the sidebar
+- Click `Copy ID`
 
-* Daily & weekly attendance views
-* Check-in / check-out system
-* Attendance statuses:
+### Issues with custom commands?
 
-  * Present
-  * Absent
-  * Half-day
-  * Leave
+Ensure that:
 
-**Access Control**
-
-* Employees: View only their own attendance
-* Admin/HR: View attendance of all employees
-
----
-
-### 🏖️ Leave & Time-Off Management
-
-#### Apply for Leave (Employee)
-
-* Select leave type:
-
-  * Paid
-  * Sick
-  * Unpaid
-* Choose date range
-* Add remarks
-* Track request status:
-
-  * Pending
-  * Approved
-  * Rejected
-
-#### Leave Approval (Admin/HR)
-
-* View all leave requests
-* Approve or reject requests
-* Add comments
-* Instant updates to employee records
-
----
-
-### 💰 Payroll Management
-
-#### Employee
-
-* View payroll details (read-only)
-
-#### Admin / HR
-
-* View payroll of all employees
-* Update salary structures
-* Maintain payroll accuracy
-
----
-
-### 🔔 Notifications & Reports
-
-* Email and system notifications
-* Analytics and reports dashboard
-* Attendance reports
-* Salary slips & payroll summaries
-
----
-
-## 🧱 Tech Stack
-
-* **React 18**
-* **Vite**
-* **Redux Toolkit**
-* **React Router v6**
-* **Tailwind CSS**
-* **React Hook Form**
-* **Framer Motion**
-* **D3.js & Recharts**
-* **Jest & React Testing Library**
-* **PostgreSQL (Backend integration ready)**
-
----
-
-## 📁 Project Structure
-
-```plaintext
-dayflow/
-├── public/                 # Static assets
-├── src/
-│   ├── components/         # Reusable UI components
-│   ├── pages/              # Application pages
-│   ├── styles/             # Global styles & Tailwind setup
-│   ├── App.jsx             # Root component
-│   ├── Routes.jsx          # Route definitions
-│   └── index.jsx           # Entry point
-├── .env                    # Environment variables
-├── index.html              # HTML template
-├── package.json            # Dependencies & scripts
-├── tailwind.config.js      # Tailwind configuration
-└── vite.config.js          # Vite configuration
-```
-
----
-
-## 🛠️ Installation & Setup
-
-### Prerequisites
-
-* Node.js (v14+)
-* npm or yarn
-
-### Install Dependencies
-
-```bash
-npm install
-# or
-yarn install
-```
-
-### Start Development Server
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
----
-
-## 📦 Production Build
-
-```bash
-npm run build
-```
-
----
-
-## 🔮 Future Enhancements
-
-* Advanced analytics dashboard
-* Automated payroll generation
-* Role-based document management
-* Performance tracking & appraisals
-* Multi-organization support
-
----
-
-## 🧠 Design & Planning
-
-System design and flow diagrams were created using Excalidraw:
-[https://link.excalidraw.com/l/65VNwvy7c4X/58RLEJ4oOwh](https://link.excalidraw.com/l/65VNwvy7c4X/58RLEJ4oOwh)
-Live Preview [shubhamos.ddns.net] (shubhamos.ddns.net)
-
----
-
-## 👨‍💻 Credits
-
-**SHUBHAMOS**
-Creator • Architect • Developer
-
-> “Building systems that make work simpler, smarter, and human.”
+- Your command is a subclass of the base command class. (use `from commands.base import Command` and then define the class like this: `class MyCommand(Command):` so it is a subclass of it)
+- It has an `async def execute(self, message, **kwargs):` function to execute the command
+- It doesn't have basic python syntax errors.
