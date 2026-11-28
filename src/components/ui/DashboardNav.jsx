@@ -172,3 +172,4 @@ const DashboardNav = ({ userRole = 'employee' }) => {
 };
 
 export default DashboardNav;
+# Matrix activity pulse - 2026-11-28
